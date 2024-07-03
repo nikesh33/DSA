@@ -51,8 +51,11 @@ int main()
     int n = 8;
 
     sortZeroOne(arr, n);
+    cout<<"{ ";
     for (int i = 0; i < n; i++)
     {
         cout << arr[i] << " ";
     }
+
+    cout << "}";
 }
