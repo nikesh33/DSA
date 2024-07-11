@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <cstring>
 using namespace std;
 
 int findLength(char ch[], int size)
@@ -34,6 +35,9 @@ int main()
     cin >> ch;
     cout << "Before: " << ch << endl;
     int len = findLength(ch, 100);
-    reverseStr(ch, len);
+    // reverseStr(ch, len);
+
+    // pre-built, utility function for reversal of character array
+    strrev(ch);
     cout << "After: " << ch << endl;
 }
