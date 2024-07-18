@@ -26,10 +26,10 @@ public:
 string Solution::str;
 
 int main() {
-    Solution solution;
+    Solution sol;
     string order = "cba";
     string s = "abcd";
-    string sortedString = solution.customSortString(order, s);
+    string sortedString = sol.customSortString(order, s);
     cout << "Sorted string: " << sortedString << endl; // Expected output: "cbad"
     return 0;
 }

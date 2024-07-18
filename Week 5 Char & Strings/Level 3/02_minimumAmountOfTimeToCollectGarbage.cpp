@@ -15,11 +15,16 @@ public:
         int travelG = 0;
         int travelM = 0;
 
+        // mujhe kaise pata lagega mera truck kaha tak travel karega?
+        // jaha bhi last g milega pure array ke andar
+        // uss index tak mera g chalega
+        // so this variables we have created
         int lastP = 0;
         int lastG = 0;
         int lastM = 0;
 
         // calculate pick time and travel time
+
         for (int i = 0; i < garbage.size(); i++)
         {
             string curr = garbage[i];
@@ -68,10 +73,10 @@ public:
 int main()
 {
     Solution sol;
-    vector<string> garbage = {"G","P","GP","GG"};
+    vector<string> garbage = {"G", "P", "GP", "GG"};
 
     // travel
-    vector<int> travel = {2,4,3};
+    vector<int> travel = {2, 4, 3};
     int ans = sol.garbageCollection(garbage, travel);
     cout << ans;
 }

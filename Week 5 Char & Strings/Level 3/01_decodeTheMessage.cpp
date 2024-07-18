@@ -13,7 +13,7 @@ public:
         char start = 'a';
         char mapping[280] = {0};
 
-        for (auto ch : key)
+        for (auto ch : key)  //ch=> har character ke liye chalega in (key) eg-run => r u n 
         {
             if (ch != ' ' && mapping[ch] == 0)
             {
