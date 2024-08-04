@@ -45,33 +45,56 @@ void printAllPath(int maze[][4], int row, int col, int srcx, int srcy, string &o
         // mark visited
         visited[newx][newy] = true;
         // call recursion
-        printAllPath(maze,row,col,newx,newy,output + 'U',visited);
+        output.push_back('U');
+        printAllPath(maze, row, col, newx, newy, output, visited);
         // backtracking
-          visited[newx][newy] = false ;
+        output.pop_back();
+        visited[newx][newy] = false;
     }
-  
+
     // RIGHT
-    if (isSafe())
+    newx = srcx;
+    newy = srcy + 1;
+    if (isSafe(srcx, srcy, newx, newy, maze, row, col, visited))
     {
         // mark visited
+        visited[newx][newy] = true;
         // call recursion
+        output.push_back('R');
+        printAllPath(maze, row, col, newx, newy, output, visited);
         // backtracking
+        output.pop_back();
+        visited[newx][newy] = false;
     }
 
     // DOWN
-    if (isSafe())
+    newx = srcx + 1;
+    newy = srcy;
+    if (isSafe(srcx, srcy, newx, newy, maze, row, col, visited))
     {
         // mark visited
+        visited[newx][newy] = true;
         // call recursion
+        output.push_back('D');
+        printAllPath(maze, row, col, newx, newy, output, visited);
         // backtracking
+        output.pop_back();
+        visited[newx][newy] = false;
     }
 
     // LEFT
-    if (isSafe())
+    newx = srcx;
+    newy = srcy - 1;
+    if (isSafe(srcx, srcy, newx, newy, maze, row, col, visited))
     {
         // mark visited
+        visited[newx][newy] = true;
         // call recursion
+        output.push_back('L');
+        printAllPath(maze, row, col, newx, newy, output, visited);
         // backtracking
+        output.pop_back();
+        visited[newx][newy] = false;
     }
 }
 
@@ -102,6 +125,6 @@ int main()
     else
     {
         visited[srcx][srcy] = true;
-        printAllPath(maze, row, col, srcx, srcy, output);
+        printAllPath(maze, row, col, srcx, srcy, output, visited);
     }
 }
