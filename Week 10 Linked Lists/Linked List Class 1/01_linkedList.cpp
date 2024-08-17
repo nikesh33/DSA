@@ -111,6 +111,45 @@ void createTail(Node *head, Node *&tail)
     tail = temp;
 }
 
+void insertAtPosition(Node *&head, Node *&tail, int data, int position)
+{
+
+    int length = getLength(head);
+
+    if (position <= 1)
+    {
+        inserAtHead(head, tail, data);
+    }
+
+    else if (position > length)
+    {
+        inserAtTail(head, tail, data);
+    }
+
+    else
+    {
+        // insert at middle of Linked list
+
+        // Step 1: Create a new Node
+        Node *newNode = new Node(data);
+
+        // Step 2: Traverse Prev // curr to position
+        Node *prev = NULL;
+        Node *curr = head;
+        while (position != 1)
+        {
+            prev = curr;
+            curr = curr->next;
+            position--;
+        }
+        // Step 3:  Attach prev to new Node
+        prev->next = newNode;
+
+        // Step 4: Attach newNode to currr
+        newNode->next = curr;
+    }
+}
+
 int main()
 {
     // // creation of Node
@@ -149,6 +188,9 @@ int main()
     inserAtHead(head, tail, 20);
     inserAtHead(head, tail, 30);
     inserAtTail(head, tail, 50);
+    printLL(head);
+
+    insertAtPosition(head, tail, 505, 51);
     printLL(head);
 
     return 0;
