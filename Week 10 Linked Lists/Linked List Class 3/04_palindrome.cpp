@@ -37,11 +37,12 @@ public:
     {
         ListNode *slow = head;
         ListNode *fast = head;
-        while (fast != NULL)
+
+        while (fast->next != NULL)
         {
             // fast kon2 step
             fast = fast->next;
-            if (fast != NULL)
+            if (fast->next != NULL)
             {
                 fast = fast->next;
                 slow = slow->next;
@@ -52,7 +53,7 @@ public:
 
     bool compareList(ListNode *head1, ListNode *head2)
     {
-        while (head1 != NULL && head2 != NULL)
+        while (head2 != NULL)
         {
             if (head1->val != head2->val)
             {
@@ -82,3 +83,41 @@ public:
         return ans;
     }
 };
+
+int main()
+{
+    // // Creating a linked list: 1 -> 2 -> 2 -> 1
+    // ListNode *node4 = new ListNode(1);
+    // ListNode *node3 = new ListNode(2, node4);
+    // ListNode *node2 = new ListNode(2, node3);
+    // ListNode *head = new ListNode(1, node2);
+    
+     // Creating a linked list: 1 -> 2 -> 3 -> 4
+    ListNode *node4 = new ListNode(4);
+    ListNode *node3 = new ListNode(3, node4);
+    ListNode *node2 = new ListNode(2, node3);
+    ListNode *head = new ListNode(1, node2);
+
+    // Creating Solution object to use its methods
+    Solution solution;
+
+    // Check if the linked list is a palindrome
+    bool result = solution.isPalindrome(head);
+
+    if (result)
+    {
+        cout << "The linked list is a palindrome." << endl;
+    }
+    else
+    {
+        cout << "The linked list is not a palindrome." << endl;
+    }
+
+    // Free allocated memory
+    delete node4;
+    delete node3;
+    delete node2;
+    delete head;
+
+    return 0;
+}
