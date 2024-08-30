@@ -80,14 +80,98 @@ public:
     }
 
     // To get Size
-    bool getSize()
+    int getSize()
     {
-        return rear - front + 1;
+        // bhul jata hoon
+        if (front == -1 && rear == -1)
+        {
+            return 0;
+        }
+        else
+            return rear - front + 1;
+    }
+
+    // get front
+    int getFront()
+    {
+        if (front == -1)
+        {
+            cout << "No Element in queue, cannot give front element" << endl;
+            return -1;
+        }
+        else
+        {
+            return arr[front];
+        }
+    }
+
+    // get rear
+    int getRear()
+    {
+        if (rear == -1)
+        {
+            cout << "No Element in queue, cannot give rear element" << endl;
+            return -1;
+        }
+        else
+        {
+            return arr[rear];
+        }
+    }
+
+    void print()
+    {
+        cout << "Printing Queue: ";
+        for (int i = 0; i < size; i++)
+        {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
     }
 };
 
 int main()
 {
+    // creation
+    Queue q(5);
+    q.print();
 
+    q.push(10);
+    q.print();
+
+    q.push(20);
+    q.print();
+
+    q.push(30);
+    q.print();
+
+    q.push(40);
+    q.print();
+
+    q.push(50);
+    q.print();
+
+    // size
+    cout << "Size of Queue: " << q.getSize() << endl;
+
+    q.pop();
+    q.print();
+
+    // check if the Queue is Empty
+    if (q.isEmpty() == true)
+    {
+        cout << "Empty" << endl;
+    }
+    else
+    {
+        cout << "Not Empty" << endl;
+    }
+
+    // rear se push hota hai front se nahi to kaise hoga overflow ho jayega
+    // q.push(100);
+    // q.print();
+
+    cout << q.getFront() << endl;
+    cout << q.getRear() << endl;
     return 0;
 }
