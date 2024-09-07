@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 using namespace std;
 
 class Node
@@ -90,10 +91,55 @@ void postorderTraversal(Node *root)
     cout << root->data << " ";
 }
 
+// 1.19.0 Level Order Traversal (BFS)
+void levelOrderTraversal(Node *root)
+{
+    queue<Node *> q;
+    q.push(root);
+    q.push(NULL);
+
+    // Asli traversal start karte hai
+
+    // while (!q.empty())
+    // while (q.size() > 1)
+    while (!q.empty())
+    {
+        Node *front = q.front();
+        q.pop();
+
+        if (front == NULL)
+        {
+            cout << endl;
+            if (!q.empty())
+            {
+
+                q.push(NULL);
+            }
+        }
+        else
+        {
+            // Valid node wala case
+            cout << front->data << " ";
+
+            if (front->left != NULL)
+            {
+                q.push(front->left);
+            }
+            if (front->right != NULL)
+            {
+                q.push(front->right);
+            }
+        }
+    }
+}
 int main()
 {
     Node *root = createTree();
-    cout << root->data << endl;
+    // cout << root->data << endl;
+
+    cout << "Level Order: " << endl;
+    levelOrderTraversal(root);
+    cout << endl;
 
     return 0;
 }
