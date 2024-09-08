@@ -23,8 +23,8 @@ public:
             return 0;
         }
         // baaki ka case
-        int leftHeight = maxDepth(root->left);
-        int rightHeight = maxDepth(root->right);
+        int leftHeight = height(root->left);
+        int rightHeight = height(root->right);
         int height = max(leftHeight, rightHeight) + 1;
         return height;
     }
@@ -46,6 +46,21 @@ public:
 
 int main()
 {
+    // Create a binary tree
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+
+    // Create an object of Solution class
+    Solution solution;
+
+    // Calculate the diameter of the binary tree
+    int diameter = solution.diameterOfBinaryTree(root);
+
+    // Print the diameter
+    cout << "Diameter of the binary tree is: " << diameter << endl;
 
     return 0;
 }
