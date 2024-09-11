@@ -21,6 +21,7 @@ public:
         {
             return false;
         }
+        // bahar is liye kiya hai kyuki har bar sum karna hai naki bas leaf ho tab
         sum += root->val;
         if (root->left == NULL && root->right == NULL)
         {
