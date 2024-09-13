@@ -257,18 +257,49 @@ Node *constructTreeFromPreAndInorderTraversal(map<int, int> &valueToIndexMap, in
     return root;
 }
 
+Node *constructTreeFromPostAndInorderTraversal(map<int, int> &valueToIndexMap, int postorder[], int inOrder[], int &postorderIndex, int inOrderStart, int inOrderEnd, int size)
+{
+    // base case
+    if (postorderIndex < 0 || inOrderStart > inOrderEnd)
+    {
+        return NULL;
+    }
+
+    // 1 case
+    int element = postorder[postorderIndex];
+    postorderIndex--;
+    Node *root = new Node(element);
+    // search karo inorder me
+    int position = valueToIndexMap[element];
+    // baki ka recursion
+    // right ki call pehle lagegi LRN pehele right wala part aata hai islye pehle right wala
+    root->right = constructTreeFromPostAndInorderTraversal(valueToIndexMap, postorder, inOrder, postorderIndex, position + 1, inOrderEnd, size);
+    root->left = constructTreeFromPostAndInorderTraversal(valueToIndexMap, postorder, inOrder, postorderIndex, inOrderStart, position - 1, size);
+    return root;
+}
+
 int main()
 {
-    int inorder[] = {10, 8, 6, 2, 4, 12};
-    int preOrder[] = {2, 8, 10, 6, 4, 12};
+    // int inorder[] = {10, 8, 6, 2, 4, 12};
+    // int preOrder[] = {2, 8, 10, 6, 4, 12};
+    // int size = 6;
+    // int preOrderIndex = 0;
+    // int inorderStart = 0;
+    // int inorderEnd = 5;
+    // map<int, int> valueToIndexMap;
+    // createMapping(inorder, size, valueToIndexMap);
+
+    // Node *root = constructTreeFromPreAndInorderTraversal(valueToIndexMap, preOrder, inorder, preOrderIndex, inorderStart, inorderEnd, size);
+
+    int inorder[] = {8, 14, 6, 2, 10, 4};
+    int postorder[] = {8, 6, 14, 4, 10, 2};
     int size = 6;
-    int preOrderIndex = 0;
+    int postorderIndex = size - 1;
     int inorderStart = 0;
-    int inorderEnd = 5;
+    int inorderEnd = size - 1;
     map<int, int> valueToIndexMap;
     createMapping(inorder, size, valueToIndexMap);
-
-    Node *root = constructTreeFromPreAndInorderTraversal(valueToIndexMap, preOrder, inorder, preOrderIndex, inorderStart, inorderEnd, size);
+    Node *root = constructTreeFromPostAndInorderTraversal(valueToIndexMap, postorder, inorder, postorderIndex, inorderStart, inorderEnd, size);
     cout << "Printing The Entire Tree: " << endl;
     levelOrderTraversal(root);
 
