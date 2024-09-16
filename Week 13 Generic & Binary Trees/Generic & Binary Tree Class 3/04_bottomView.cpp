@@ -128,7 +128,7 @@ void levelOrderTraversal(Node *root)
 //     printRightView(root->left, level + 1, rightView);
 // }
 
-void printTopView(Node *root)
+void printBottomView(Node *root)
 {
     // Map crreate
     map<int, int> hdToNodemap;
@@ -143,11 +143,14 @@ void printTopView(Node *root)
         Node *frontNode = temp.first;
         int hd = temp.second;
 
+        // ******** BAS YAHI CHANGE KARNA THA
         // if there is no entry for hd in map, then create a new entry
-        if (hdToNodemap.find(hd) == hdToNodemap.end())
-        {
-            hdToNodemap[hd] = frontNode->data;
-        }
+        // if (hdToNodemap.find(hd) == hdToNodemap.end()){
+        // hdToNodemap[hd] = frontNode->data;
+        // }
+
+        // Without condition agar map me ans stored bhi hai tab bhi store karoge to end ka ans aa jayega ******// ||<<<<---
+        hdToNodemap[hd] = frontNode->data;
         // child ko dekhna hai
         if (frontNode->left != NULL)
         {
@@ -171,9 +174,9 @@ int main()
     levelOrderTraversal(root);
 
     // 10 20 40 -1 -1 50 30 110 -1 -1 111 -1 -1 80 -1 -1 30 -1 60 -1 90 112 -1 -1 113 -1 -1
-    // ANS -> 40 20 10 30 60 90 113
+    // ANS -> 110 30 111 80 112 90 113
     vector<int> rightView;
-    printTopView(root);
+    printBottomView(root);
 
     for (int i = 0; i < rightView.size(); i++)
     {
