@@ -125,13 +125,29 @@ void postorder(Node *root)
     cout << root->data << " ";
 }
 
+Node *maxValue(Node *root)
+{
+    if (root == NULL)
+    {
+        cout << "No MIN Value Found" << endl;
+        return NULL;
+    }
+    Node *temp = root;
+
+    while (temp->right != NULL)
+    {
+        temp = temp->right;
+    }
+    return temp;
+}
+
 int main()
 {
     Node *root = NULL;
     createBST(root);
     levelOrderTraversal(root);
     // INPUT -> 50 30 20 25 40 60 70 80 55 -1
-    // ANS || ->>
+    // ANS || ->> Max Value: 80
     // 50
     // 30 60
     // 20 40 55 70
@@ -145,6 +161,19 @@ int main()
     cout << endl
          << "Postorder: ";
     postorder(root);
+
+    cout << endl;
+    Node *maxNode = maxValue(root);
+
+    // MAX
+    if (maxNode == NULL)
+    {
+        cout << "No Max Value Found" << endl;
+    }
+    else
+    {
+        cout << "Max Value: " << maxNode->data << endl;
+    }
 
     return 0;
 }

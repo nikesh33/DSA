@@ -125,13 +125,29 @@ void postorder(Node *root)
     cout << root->data << " ";
 }
 
+Node *minValue(Node *root)
+{
+    if (root == NULL)
+    {
+        cout << "No MIN Value Found" << endl;
+        return NULL;
+    }
+    Node *temp = root;
+
+    while (temp->left != NULL)
+    {
+        temp = temp->left;
+    }
+    return temp;
+}
+
 int main()
 {
     Node *root = NULL;
     createBST(root);
     levelOrderTraversal(root);
     // INPUT -> 50 30 20 25 40 60 70 80 55 -1
-    // ANS || ->>
+    // ANS || ->> Min Value: 20
     // 50
     // 30 60
     // 20 40 55 70
@@ -145,6 +161,19 @@ int main()
     cout << endl
          << "Postorder: ";
     postorder(root);
+
+    cout << endl;
+    Node *minNode = minValue(root);
+
+    // MIN
+    if (minNode == NULL)
+    {
+        cout << "There is no node in tree, so no min value" << endl;
+    }
+    else
+    {
+        cout << "Min Value: " << minNode->data << endl;
+    }
 
     return 0;
 }
