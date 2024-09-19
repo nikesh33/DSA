@@ -125,20 +125,35 @@ void inorder(Node *root)
 //     cout << root->data << " ";
 // }
 
-Node *maxValue(Node *root)
+bool searchInBST(Node *root, int target)
 {
+    // Base Case
     if (root == NULL)
     {
-        cout << "No MIN Value Found" << endl;
-        return NULL;
+        return false;
     }
-    Node *temp = root;
 
-    while (temp->right != NULL)
+    // 1 Case Mujhe Solve Karna hai
+    if (root->data == target)
     {
-        temp = temp->right;
+        return true;
     }
-    return temp;
+
+    // Baki ka Case main solve karunga
+    // Left ya right
+    bool leftAns = false;
+    bool rightAns = false;
+    if (target > root->data)
+    {
+        rightAns = searchInBST(root->right, target);
+    }
+    else
+    {
+        leftAns = searchInBST(root->left, target);
+    }
+
+    // agar left me ans hai to bhi true hoga right me mila hai to bhi true rahega
+    return leftAns || rightAns;
 }
 
 int main()
@@ -153,20 +168,39 @@ int main()
     // 20 40 55 70
     // 25 80
 
-    cout<< "Inorder: ";
+    cout << "Inorder: ";
     inorder(root);
     cout << endl;
 
-    Node *maxNode = maxValue(root);
+    // Node *maxNode = maxValue(root);
 
-    // MAX
-    if (maxNode == NULL)
+    // // MAX
+    // if (maxNode == NULL)
+    // {
+    //     cout << "No Max Value Found" << endl;
+    // }
+    // else
+    // {
+    //     cout << "Max Value: " << maxNode->data << endl;
+    // }
+
+    int target;
+    cout << "Enter the target: " << endl;
+    cin >> target;
+
+    while (target != -1)
     {
-        cout << "No Max Value Found" << endl;
-    }
-    else
-    {
-        cout << "Max Value: " << maxNode->data << endl;
+        bool ans = searchInBST(root, target);
+        if (ans == true)
+        {
+            cout << "Found" << endl;
+        }
+        else
+        {
+            cout << "Not Found" << endl;
+        }
+        cout << "Enter the target: " << endl;
+        cin >> target;
     }
 
     return 0;
