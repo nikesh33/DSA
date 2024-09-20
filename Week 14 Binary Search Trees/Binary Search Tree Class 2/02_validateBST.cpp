@@ -1,0 +1,77 @@
+#include <iostream>
+using namespace std;
+// Definition for a binary tree node.
+struct TreeNode
+{
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
+class Solution
+{
+public:
+    bool solve(TreeNode *root, long long int lowerBound,
+               long long int upperBound)
+    {
+        // base case
+        if (root == NULL)
+        {
+            return true;
+        }
+
+        bool cond1 = (root->val > lowerBound);
+        bool cond2 = (root->val < upperBound);
+        bool leftAns = solve(root->left, lowerBound, root->val);
+        bool rightAns = solve(root->right, root->val, upperBound);
+
+        if (cond1 && cond2 && leftAns && rightAns == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    bool isValidBST(TreeNode *root)
+    {
+
+        long long int lowerBound = -2147483657;
+        long long int upperBound = 2147483657;
+
+        bool ans = solve(root, lowerBound, upperBound);
+        return ans;
+    }
+};
+
+int main()
+{
+    //    2
+    //   / \
+   //   1   3
+
+    // Create nodes of the tree
+    TreeNode *root = new TreeNode(2);
+    root->left = new TreeNode(1);
+    root->right = new TreeNode(3);
+
+    // Create the solution object
+    Solution sol;
+
+    // Check if the tree is a valid BST
+    if (sol.isValidBST(root))
+    {
+        cout << "The tree is a valid Binary Search Tree." << endl;
+    }
+    else
+    {
+        cout << "The tree is NOT a valid Binary Search Tree." << endl;
+    }
+
+    return 0;
+}
