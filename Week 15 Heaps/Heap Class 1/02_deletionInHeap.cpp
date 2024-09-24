@@ -113,6 +113,7 @@ int main()
     cout << "Printing the content of heap: " << endl;
     h.printHeap();
     int ans = h.deleteFromHeap();
-    cout << "Answer: " << ans << endl;
+    cout<<endl << "Answer: " << ans << endl;
+    h.printHeap();
     return 0;
 }
