@@ -113,6 +113,8 @@ public:
         vector<int> curr(a.length() + 1, 0);
         vector<int> next(a.length() + 1, 0);
 
+        // iska kuch n kuch toh karna padega, nahi toh galti kardenge - IMP
+        // toh mujhe curr col ka last dabbe me b.length()-j save karna hai
         // // abhi ke liye bhul jao
         // for (int col = 0; col <= b.length(); col++)
         // {
@@ -124,26 +126,31 @@ public:
             next[row] = a.length() - row;
         }
 
-        for (int i_index = a.length() - 1; i_index >= 0; i_index--)
+        for (int j_index = b.length() - 1; j_index >= 0; j_index--)
         {
-            for (int j_index = b.length() - 1; j_index >= 0; j_index--)
+            // har naye column ke last dabbe me ans insert karo
+            // MOST Important Line hai
+            curr[a.length()] = b.length() - j_index;
+            for (int i_index = a.length() - 1; i_index >= 0; i_index--)
             {
                 int ans = 0;
                 if (a[i_index] == b[j_index])
                 {
-                    ans = 0 + dp[i_index + 1][j_index + 1];
+                    ans = 0 + next[i_index + 1];
                 }
                 else
                 {
-                    int replace = 1 + dp[i_index + 1][j_index + 1];
-                    int insert = 1 + dp[i_index][j_index + 1];
-                    int remove = 1 + dp[i_index + 1][j_index];
+                    int replace = 1 + next[i_index + 1];
+                    int insert = 1 + next[i_index];
+                    int remove = 1 + curr[i_index + 1];
                     ans = min(insert, min(remove, replace));
                 }
-                dp[i_index][j_index] = ans;
+                curr[i_index] = ans;
             }
+            // shifting
+            next = curr;
         }
-        return dp[0][0];
+        return next[0];
     }
 
     int minDistance(string word1, string word2)
