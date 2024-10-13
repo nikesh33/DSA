@@ -91,12 +91,12 @@ public:
         return dp[0][0];
     }
 
-    // Space Optimisation
+    // Space Optimisation (col wise)
     int solveUsingTabSO(string a, string b)
     {
         // WE Dont Need Entire 2D Vector
         // vector<vector<int>> dp(a.length() + 1, vector<int>(b.length() + 1, 0));
-
+        // To go column wise it will a.length
         vector<int> curr(a.length() + 1, 0);
         vector<int> next(a.length() + 1, 0);
 
@@ -122,6 +122,35 @@ public:
         return next[0];
     }
 
+    // Space Optimisation But Without Changing Loop (row Wise)
+    int solveUsingTabSONoLoopChange(string a, string b)
+    {
+        // To go row wise it will b.length
+        vector<int> currRow(b.length() + 1, 0);
+        vector<int> nextRow(b.length() + 1, 0);
+
+        for (int i_index = a.length() - 1; i_index >= 0; i_index--)
+        {
+            for (int j_index = b.length() - 1; j_index >= 0; j_index--)
+            {
+                int ans = 0;
+                if (a[i_index] == b[j_index])
+                {
+                    ans = 1 + nextRow[j_index + 1];
+                }
+                else
+                {
+                    ans = 0 + max(currRow[j_index + 1],
+                                  nextRow[j_index]);
+                }
+                currRow[j_index] = ans;
+            }
+            // Shifting
+            nextRow = currRow;
+        }
+        return nextRow[0];
+    }
+
     int longestCommonSubsequence(string text1, string text2)
     {
         int i = 0;
@@ -136,8 +165,13 @@ public:
         // // Using Tabulation
         // int ans = solveUsingTab(text1, text2);
 
-        // Space Optimisation
-        int ans = solveUsingTabSO(text1, text2);
+        // // Space Optimisation
+
+        // Column Wise Ans Nikal Rahe hai
+        // int ans = solveUsingTabSO(text1, text2);
+
+        // Row Wise Ans Nikal Rahe hai
+        int ans = solveUsingTabSONoLoopChange(text1, text2);
 
         return ans;
     }
