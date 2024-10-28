@@ -7,48 +7,39 @@ using namespace std;
 class Solution
 {
 public:
-    bool solve(int src, unordered_map<int, bool> &visited, vector<vector<int>> adj)
+    bool checkCycle(int src, unordered_map<int, bool> &vis, int parent, vector<int> adj[])
     {
-        queue<int> q;
-        unordered_map<int, int> parent;
+        vis[src] = true;
 
-        q.push(src);
-        visited[src] = true;
-        parent[src] = -1;
-
-        while (!q.empty())
+        for (auto nbr : adj[src])
         {
-            int frontNode = q.front();
-            q.pop();
-
-            for (auto nbr : adj[frontNode])
+            if (!vis[nbr])
             {
-                if (!visited[nbr])
+                bool ans = checkCycle(nbr, vis, src, adj);
+
+                if (ans == true)
                 {
-                    q.push(nbr);
-                    visited[nbr] = true;
-                    parent[nbr] = frontNode;
-                }
-                else if (visited[nbr] == true && nbr != parent[frontNode])
-                {
-                    // cycle present
                     return true;
                 }
             }
+            else if (vis[nbr] == 1 && nbr != parent)
+            {
+                return true;
+            }
         }
-        // cycle not present
         return false;
     }
 
-    bool isCycle(int V, vector<vector<int>> adj)
+    bool isCycle(int V, vector<int> adj[])
     {
-        unordered_map<int, bool> visited;
+        unordered_map<int, bool> vis;
         for (int i = 0; i < V; i++)
         {
-            if (!visited[i])
+            if (!vis[i])
             {
-                bool ans = solve(i, visited, adj);
-                if (ans == true)
+                int parent = -1;
+                bool isCycle = checkCycle(i, vis, parent, adj);
+                if (isCycle == true)
                 {
                     return true;
                 }
@@ -61,32 +52,32 @@ public:
 int main()
 {
     int V, E;
-    cout << "Enter the number of vertices: ";
+    cout << "Enter number of vertices: ";
     cin >> V;
-    cout << "Enter the number of edges: ";
+    cout << "Enter number of edges: ";
     cin >> E;
 
-    vector<vector<int>> adj(V);
+    // Initialize adjacency list
+    vector<int> adj[V];
 
-    cout << "Enter the edges (format: u v for an edge between u and v):" << endl;
+    cout << "Enter edges (u v) format for each edge:" << endl;
     for (int i = 0; i < E; i++)
     {
         int u, v;
         cin >> u >> v;
-        adj[u].push_back(v);
-        adj[v].push_back(u); // Assuming an undirected graph; for directed, remove this line
+        adj[u].push_back(v); // Add edge u->v
+        adj[v].push_back(u); // Since the graph is undirected, add edge v->u
     }
 
+    // Create Solution object and check for cycle
     Solution obj;
-    bool hasCycle = obj.isCycle(V, adj);
-
-    if (hasCycle)
+    if (obj.isCycle(V, adj))
     {
-        cout << "The graph contains a cycle." << endl;
+        cout << "Graph contains a cycle" << endl;
     }
     else
     {
-        cout << "The graph does not contain a cycle." << endl;
+        cout << "Graph does not contain a cycle" << endl;
     }
 
     return 0;
