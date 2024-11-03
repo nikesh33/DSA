@@ -70,7 +70,7 @@ public:
         {
             int nbrNode = nbrPair.first;
             int nbrDist = nbrPair.second;
-            if (dist[src] + nbrDist < dist[nbrDist])
+            if (dist[src] + nbrDist < dist[nbrNode])
             {
                 dist[nbrNode] = dist[src] + nbrDist;
             }
